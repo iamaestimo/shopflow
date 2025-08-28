@@ -18,6 +18,10 @@ defmodule ShopflowWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    # Catalog management routes
+    resources "/categories", CategoryController
+    resources "/products", ProductController
   end
 
   # Other scopes may use custom stacks.

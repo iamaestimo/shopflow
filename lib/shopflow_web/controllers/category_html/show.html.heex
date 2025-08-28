@@ -1,0 +1,27 @@
+<.header>
+  Category <%= @category.id %>
+  <:subtitle>Details for this category</:subtitle>
+  <:actions>
+    <.link navigate={~p"/categories/#{@category}/edit"} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <.icon name="hero-pencil-square-solid" class="h-4 w-4" />
+      Edit category
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @category.name %></:item>
+  <:item title="Description"><%= @category.description %></:item>
+  <:item title="Status">
+    <span class={[
+      "px-2 py-1 text-xs font-semibold rounded-full",
+      if(@category.is_active, do: "bg-green-100 text-green-800", else: "bg-red-100 text-red-800")
+    ]}>
+      <%= if @category.is_active, do: "Active", else: "Inactive" %>
+    </span>
+  </:item>
+  <:item title="Created"><%= Calendar.strftime(@category.inserted_at, "%Y-%m-%d %H:%M") %></:item>
+  <:item title="Updated"><%= Calendar.strftime(@category.updated_at, "%Y-%m-%d %H:%M") %></:item>
+</.list>
+
+<.back navigate={~p"/categories"}>Back to categories</.back>
