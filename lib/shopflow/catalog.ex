@@ -7,6 +7,8 @@ defmodule Shopflow.Catalog do
   alias Shopflow.Repo
 
   alias Shopflow.Catalog.Category
+  alias Shopflow.Catalog.Product
+  alias Shopflow.Suppliers.Supplier
 
   @doc """
   Returns the list of categories.
@@ -102,8 +104,6 @@ defmodule Shopflow.Catalog do
     Category.changeset(category, attrs)
   end
 
-  alias Shopflow.Catalog.Product
-
   @doc """
   Returns the list of products.
 
@@ -114,7 +114,19 @@ defmodule Shopflow.Catalog do
 
   """
   def list_products do
-    Repo.all(Product)
+    Product
+    |> Repo.all()
+    |> Repo.preload(:supplier)
+  end
+
+  # N+1 queries
+  def list_products_with_n_plus_one do
+    products = Repo.all(Product)  # 1 query for products
+
+    Enum.map(products, fn product ->
+      supplier = Repo.get(Supplier, product.supplier_id)  # N queries for suppliers
+      %{product | supplier: supplier}
+    end)
   end
 
   @doc """

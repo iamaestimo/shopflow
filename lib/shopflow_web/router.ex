@@ -22,6 +22,7 @@ defmodule ShopflowWeb.Router do
     # Catalog management routes
     resources "/categories", CategoryController
     resources "/products", ProductController
+    resources "/suppliers", SupplierController
   end
 
   # Other scopes may use custom stacks.

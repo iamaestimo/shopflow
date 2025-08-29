@@ -17,6 +17,15 @@
   <:col :let={product} label="Name"><%= product.name %></:col>
   <:col :let={product} label="SKU"><%= product.sku %></:col>
   <:col :let={product} label="Price">$<%= product.price %></:col>
+  <:col :let={product} label="Supplier">
+    <%= if product.supplier do %>
+      <.link navigate={~p"/suppliers/#{product.supplier}"} class="text-blue-600 hover:text-blue-900">
+        <%= product.supplier.name %>
+      </.link>
+    <% else %>
+      <span class="text-gray-400">No supplier</span>
+    <% end %>
+  </:col>
   <:col :let={product} label="Status">
     <span class={[
       "px-2 py-1 text-xs font-semibold rounded-full",

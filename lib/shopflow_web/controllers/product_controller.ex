@@ -7,6 +7,7 @@ defmodule ShopflowWeb.ProductController do
 
   def index(conn, _params) do
     products = Catalog.list_products()
+    # products = Catalog.list_products_with_n_plus_one()
     render(conn, :index, products: products)
   end
 
