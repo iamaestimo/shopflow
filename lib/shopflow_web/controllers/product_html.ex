@@ -54,4 +54,57 @@ defmodule ShopflowWeb.ProductHTML do
       {supplier.name, supplier.id}
     end)
   end
+
+  @doc """
+  Renders the CSV import modal.
+  """
+  attr :id, :string, required: true
+
+  def import_modal(assigns) do
+    ~H"""
+    <div id={@id} class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+      <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="mt-3 text-center">
+          <h3 class="text-lg font-medium text-gray-900 mb-4">Import Products from CSV</h3>
+
+          <.simple_form :let={f} for={%{}} action={~p"/products/import"} multipart={true}>
+            <div class="mb-4">
+              <.input
+                field={f[:csv_file]}
+                type="file"
+                label="Select CSV File"
+                accept=".csv"
+                required={true}
+              />
+            </div>
+
+            <div class="text-sm text-gray-600 mb-4 text-left">
+              <p class="font-medium mb-2">CSV Format Requirements:</p>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Headers: name, sku, price, category_id, supplier_id</li>
+                <li>Optional: description, is_active</li>
+                <li>Use existing category and supplier IDs</li>
+                <li>Price should be numeric (e.g., 29.99)</li>
+                <li>is_active: true/false (defaults to true)</li>
+              </ul>
+            </div>
+
+            <div class="flex items-center justify-between gap-4">
+              <button
+                type="button"
+                onclick="document.getElementById('{@id}').classList.add('hidden')"
+                class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
+              >
+                Cancel
+              </button>
+              <.button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                Import CSV
+              </.button>
+            </div>
+          </.simple_form>
+        </div>
+      </div>
+    </div>
+    """
+  end
 end

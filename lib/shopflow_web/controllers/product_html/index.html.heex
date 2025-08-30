@@ -2,6 +2,13 @@
   Products
   <:subtitle>Manage your product catalog</:subtitle>
   <:actions>
+    <button
+      onclick="document.getElementById('import-modal').classList.remove('hidden')"
+      class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
+    >
+      <.icon name="hero-arrow-up-tray-solid" class="h-4 w-4" />
+      Import CSV
+    </button>
     <.link navigate={~p"/products/new"} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
       <.icon name="hero-plus-solid" class="h-4 w-4" />
       New Product
@@ -56,3 +63,6 @@
     </.link>
   </:action>
 </.table>
+
+<!-- CSV Import Modal -->
+<.import_modal id="import-modal" />
