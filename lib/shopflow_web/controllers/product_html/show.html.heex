@@ -1,0 +1,29 @@
+<.header>
+  Product <%= @product.name %>
+  <:subtitle>Product details</:subtitle>
+  <:actions>
+    <.link navigate={~p"/products/#{@product}/edit"} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <.icon name="hero-pencil-square-solid" class="h-4 w-4" />
+      Edit product
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @product.name %></:item>
+  <:item title="Description"><%= @product.description %></:item>
+  <:item title="SKU"><%= @product.sku %></:item>
+  <:item title="Price">$<%= @product.price %></:item>
+  <:item title="Status">
+    <span class={[
+      "px-2 py-1 text-xs font-semibold rounded-full",
+      if(@product.is_active, do: "bg-green-100 text-green-800", else: "bg-red-100 text-red-800")
+    ]}>
+      <%= if @product.is_active, do: "Active", else: "Inactive" %>
+    </span>
+  </:item>
+  <:item title="Created"><%= Calendar.strftime(@product.inserted_at, "%Y-%m-%d %H:%M") %></:item>
+  <:item title="Updated"><%= Calendar.strftime(@product.updated_at, "%Y-%m-%d %H:%M") %></:item>
+</.list>
+
+<.back navigate={~p"/products"}>Back to products</.back>

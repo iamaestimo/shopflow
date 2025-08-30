@@ -1,0 +1,22 @@
+<.header>
+  Supplier <%= @supplier.name %>
+  <:subtitle>Supplier details</:subtitle>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @supplier.name %></:item>
+  <:item title="Email"><%= @supplier.contact_email %></:item>
+  <:item title="Phone"><%= @supplier.contact_phone %></:item>
+  <:item title="Status">
+    <span class={[
+      "px-2 py-1 text-xs font-semibold rounded-full",
+      if(@supplier.is_active, do: "bg-green-100 text-green-800", else: "bg-red-100 text-red-800")
+    ]}>
+      <%= if @supplier.is_active, do: "Active", else: "Inactive" %>
+    </span>
+  </:item>
+  <:item title="Created"><%= Calendar.strftime(@supplier.inserted_at, "%Y-%m-%d %H:%M") %></:item>
+  <:item title="Updated"><%= Calendar.strftime(@supplier.updated_at, "%Y-%m-%d %H:%M") %></:item>
+</.list>
+
+<.back navigate={~p"/products"}>Back to products</.back>

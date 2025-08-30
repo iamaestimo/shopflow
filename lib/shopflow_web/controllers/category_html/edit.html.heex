@@ -1,0 +1,8 @@
+<.header>
+  Edit Category
+  <:subtitle>Update category information</:subtitle>
+</.header>
+
+<.category_form changeset={@changeset} action={~p"/categories/#{@category}"} />
+
+<.back navigate={~p"/categories/#{@category}"}>Back to category</.back>

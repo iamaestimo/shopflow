@@ -1,0 +1,48 @@
+<.header>
+  Categories
+  <:subtitle>Manage your product categories</:subtitle>
+  <:actions>
+    <.link navigate={~p"/categories/new"} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <.icon name="hero-plus-solid" class="h-4 w-4" />
+      New Category
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="categories"
+  rows={@categories}
+  row_click={fn category -> JS.navigate(~p"/categories/#{category}") end}
+>
+  <:col :let={category} label="Name"><%= category.name %></:col>
+  <:col :let={category} label="Description"><%= category.description %></:col>
+  <:col :let={category} label="Status">
+    <span class={[
+      "px-2 py-1 text-xs font-semibold rounded-full",
+      if(category.is_active, do: "bg-green-100 text-green-800", else: "bg-red-100 text-red-800")
+    ]}>
+      <%= if category.is_active, do: "Active", else: "Inactive" %>
+    </span>
+  </:col>
+  <:col :let={category} label="Created">
+    <%= Calendar.strftime(category.inserted_at, "%Y-%m-%d") %>
+  </:col>
+  <:action :let={category}>
+    <div class="sr-only">
+      <.link navigate={~p"/categories/#{category}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/categories/#{category}/edit"} class="text-blue-600 hover:text-blue-900">
+      Edit
+    </.link>
+  </:action>
+  <:action :let={category}>
+    <.link
+      href={~p"/categories/#{category}"}
+      method="delete"
+      data-confirm="Are you sure?"
+      class="text-red-600 hover:text-red-900"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>

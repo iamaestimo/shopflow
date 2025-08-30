@@ -1,0 +1,68 @@
+<.header>
+  Products
+  <:subtitle>Manage your product catalog</:subtitle>
+  <:actions>
+    <button
+      onclick="document.getElementById('import-modal').classList.remove('hidden')"
+      class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
+    >
+      <.icon name="hero-arrow-up-tray-solid" class="h-4 w-4" />
+      Import CSV
+    </button>
+    <.link navigate={~p"/products/new"} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <.icon name="hero-plus-solid" class="h-4 w-4" />
+      New Product
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="products"
+  rows={@products}
+  row_click={fn product -> JS.navigate(~p"/products/#{product}") end}
+>
+  <:col :let={product} label="Name"><%= product.name %></:col>
+  <:col :let={product} label="SKU"><%= product.sku %></:col>
+  <:col :let={product} label="Price">$<%= product.price %></:col>
+  <:col :let={product} label="Supplier">
+    <%= if product.supplier do %>
+      <.link navigate={~p"/suppliers/#{product.supplier}"} class="text-blue-600 hover:text-blue-900">
+        <%= product.supplier.name %>
+      </.link>
+    <% else %>
+      <span class="text-gray-400">No supplier</span>
+    <% end %>
+  </:col>
+  <:col :let={product} label="Status">
+    <span class={[
+      "px-2 py-1 text-xs font-semibold rounded-full",
+      if(product.is_active, do: "bg-green-100 text-green-800", else: "bg-red-100 text-red-800")
+    ]}>
+      <%= if product.is_active, do: "Active", else: "Inactive" %>
+    </span>
+  </:col>
+  <:col :let={product} label="Created">
+    <%= Calendar.strftime(product.inserted_at, "%Y-%m-%d") %>
+  </:col>
+  <:action :let={product}>
+    <div class="sr-only">
+      <.link navigate={~p"/products/#{product}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/products/#{product}/edit"} class="text-blue-600 hover:text-blue-900">
+      Edit
+    </.link>
+  </:action>
+  <:action :let={product}>
+    <.link
+      href={~p"/products/#{product}"}
+      method="delete"
+      data-confirm="Are you sure?"
+      class="text-red-600 hover:text-red-900"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<!-- CSV Import Modal -->
+<.import_modal id="import-modal" />

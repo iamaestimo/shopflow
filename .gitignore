@@ -35,3 +35,6 @@ shopflow-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# AS config
+/config/appsignal.exs
+
