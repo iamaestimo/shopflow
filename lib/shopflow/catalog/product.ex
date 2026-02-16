@@ -22,7 +22,7 @@ defmodule Shopflow.Catalog.Product do
   def changeset(product, attrs) do
     product
     |> cast(attrs, [:name, :description, :sku, :price, :is_active, :deleted_at, :category_id, :supplier_id])
-    |> validate_required([:id, :name, :sku, :price, :category_id, :supplier_id])
+    |> validate_required([:name, :sku, :price, :category_id, :supplier_id])
     |> unique_constraint(:sku)
   end
 

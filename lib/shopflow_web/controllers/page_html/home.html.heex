@@ -1,4 +1,30 @@
 <.flash_group flash={@flash} />
+
+<div class="px-4 py-10 sm:px-6 sm:py-28 lg:px-8 xl:px-28 xl:py-32">
+  <div class="mx-auto max-w-xl lg:mx-0">
+    <h1 class="text-4xl font-bold tracking-tight text-zinc-900 sm:text-6xl">
+      Shopflow
+    </h1>
+    <p class="mt-6 text-lg leading-8 text-zinc-600">
+      Your complete e-commerce management solution. Manage products, categories, inventory, and orders all in one place.
+    </p>
+    <div class="mt-10 flex items-center gap-x-6">
+      <.link 
+        navigate={~p"/categories"} 
+        class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      >
+        Manage Categories
+      </.link>
+      <.link 
+        navigate={~p"/products"} 
+        class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+      >
+        Manage Products
+      </.link>
+    </div>
+  </div>
+</div>
+
 <div class="left-[40rem] fixed inset-y-0 right-0 z-0 hidden lg:block xl:left-[50rem]">
   <svg
     viewBox="0 0 1480 957"

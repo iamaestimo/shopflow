@@ -1,0 +1,8 @@
+<.header>
+  Edit Product
+  <:subtitle>Update product information</:subtitle>
+</.header>
+
+<.product_form changeset={@changeset} action={~p"/products/#{@product}"} categories={@categories} suppliers={@suppliers} />
+
+<.back navigate={~p"/products/#{@product}"}>Back to product</.back>
